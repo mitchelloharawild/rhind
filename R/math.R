@@ -60,12 +60,12 @@ math_total <- function(.fn, .x, ..., na.rm = FALSE) {
   )
 }
 
-extreme <- function(x, sign, cumulative) {
+frac_which_extreme <- function(x, sign, cumulative) {
   .Call(C_frac_extreme, field_n(x), field_d(x), sign, cumulative)
 }
 
 cumulative_extreme <- function(x, sign) {
-  simplify(x[extreme(x, sign, TRUE)])
+  simplify(x[frac_which_extreme(x, sign, TRUE)])
 }
 
 math_extreme <- function(.fn, .x, ..., na.rm = FALSE) {
@@ -78,8 +78,8 @@ math_extreme <- function(.fn, .x, ..., na.rm = FALSE) {
     return(vec_cast(fraction(n, 0L), vec_ptype(.x)))
   }
   at <- c(
-    if (.fn != "max") extreme(.x, 1L, FALSE),
-    if (.fn != "min") extreme(.x, -1L, FALSE)
+    if (.fn != "max") frac_which_extreme(.x, 1L, FALSE),
+    if (.fn != "min") frac_which_extreme(.x, -1L, FALSE)
   )
   simplify(.x[at])
 }
