@@ -1,0 +1,36 @@
+test_that("compares values", {
+  expect_true(fraction(2, 4) == fraction(1L, 2L))
+  expect_true(fraction(1, 3) < fraction(1, 2))
+  expect_true(fraction(1, 2) == 0.5)
+  expect_true(2 == fraction(4, 2))
+  expect_identical(fraction(1, 2) == NA, NA)
+  expect_error(fraction(1, 2) == "1/2", class = "vctrs_error_incompatible_op")
+  expect_error(fraction(1, 2) == TRUE, class = "vctrs_error_incompatible_op")
+})
+
+test_that("exact where doubles are not", {
+  a <- fraction(2^53 - 1, 2^53)
+  b <- fraction(2^53 - 2, 2^53 - 1)
+  expect_true(b < a)
+  # Equal as doubles
+  x <- fraction(c(1e15 + 2, 1e15 + 1), c(3e15 + 5, 3e15 + 2))
+  expect_identical(as.double(x[1]), as.double(x[2]))
+  expect_identical(x[1] < x[2], TRUE)
+  expect_identical(order(x[2:1]), 2:1)
+  expect_identical(vctrs::vec_order(x[2:1]), 2:1)
+  expect_length(unique(x), 2)
+})
+
+test_that("unique, match and sort", {
+  x <- fraction(c(2L, 1L, 1L, NA, 1L), c(4L, 2L, 3L, 1L, 0L))
+  expect_terms(unique(x), c(2, 1, NA, 1), c(4, 3, NA, 0))
+  expect_identical(duplicated(x), c(FALSE, TRUE, FALSE, FALSE, FALSE))
+  expect_terms(sort(x), c(1, 2, 1, 1), c(3, 4, 2, 0))
+  expect_identical(order(x), c(3L, 1L, 2L, 5L, 4L))
+  expect_identical(vctrs::vec_match(fraction(1L, 2L), x), 1L)
+  expect_identical(vctrs::vec_group_id(x)[1:3], c(1L, 1L, 2L), ignore_attr = TRUE)
+  skip_if(getRversion() < "4.2.0")
+  expect_identical(match(fraction(3, 6), x), 1L)
+  expect_identical(x %in% c(0.5, NA), c(TRUE, TRUE, FALSE, TRUE, FALSE))
+  expect_identical(fraction(1e5) %in% 1e5, TRUE)
+})
