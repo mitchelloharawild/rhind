@@ -2,6 +2,9 @@ url: https://pkg.mitchelloharawild.com/fraction/
 template:
   bootstrap: 5
   opengraph:
+    image:
+      src: social-card.png
+      alt: "The fraction hex sticker"
     twitter:
       creator: "@mitchoharawild"
       card: summary
