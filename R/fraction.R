@@ -1,4 +1,5 @@
-# Whole numbers up to this size are exact doubles
+# Doubles have 53 significant bits (.Machine$double.digits), so whole numbers up
+# to this size are exact. Must match MAX_WHOLE in src/rhind.c.
 max_whole <- 2^53
 
 #' Exact fractions
