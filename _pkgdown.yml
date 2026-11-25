@@ -30,4 +30,5 @@ reference:
     contents:
       - fraction-arithmetic
       - fraction-comparison
+      - frac_pool
       - format.fraction

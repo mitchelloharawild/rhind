@@ -398,6 +398,31 @@ SEXP frac_accumulate(SEXP op_, SEXP n, SEXP d, SEXP cumulative_, SEXP by_) {
   return finish(&w, x.in != NULL);
 }
 
+/* Totals of the numerators and denominators, as stored (so they don't overflow) */
+SEXP frac_pool(SEXP n, SEXP d) {
+  fracs x = read_fracs(n, d);
+  writer w = new_writer(1);
+  frac s = {0, 0, 0};
+  int pos = 0, neg = 0;
+  for (R_xlen_t i = 0; i < x.len; i++) {
+    CHECK_INTERRUPT(i);
+    frac v = get(&x, i);
+    if (v.na) {
+      s = FRAC_NA;
+      break;
+    }
+    if (v.d == 0) {
+      pos |= v.n > 0;
+      neg |= v.n < 0;
+    }
+    s.n += v.n;
+    s.d += v.d;
+  }
+  if (!s.na && (pos || neg)) s = make(pos - neg, 0);
+  put(&w, 0, s);
+  return finish(&w, x.in != NULL);
+}
+
 /* Positions (from 1) of the smallest (sign = 1) or largest (sign = -1)
  * elements so far. Missing values (or NaN) are selected once seen. */
 SEXP frac_extreme(SEXP n, SEXP d, SEXP sign_, SEXP cumulative_) {
@@ -581,6 +606,7 @@ static const R_CallMethodDef call_entries[] = {
   CALLDEF(frac_rescale, 3),
   CALLDEF(frac_lcd, 2),
   CALLDEF(frac_accumulate, 5),
+  CALLDEF(frac_pool, 2),
   CALLDEF(frac_extreme, 4),
   CALLDEF(frac_round, 4),
   CALLDEF(frac_order, 2),

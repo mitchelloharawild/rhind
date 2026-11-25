@@ -89,3 +89,33 @@ rescale <- function(x, d, call = caller_env()) {
   }
   frac_restore(out)
 }
+
+#' Pool fractions
+#'
+#' The sum of the numerators over the sum of the denominators, which pools
+#' proportions such as 3 of 10 and 30 of 100 into 33 of 110.
+#'
+#' Unlike `mean()`, which weights all fractions equally, `frac_pool()` weights
+#' fractions by their denominators. So it depends on how fractions are written:
+#' pooling `1/2` with `0/1` is `1/3`, but pooling `2/4` with `0/1` is `2/5`.
+#' Calculations reduce fractions to lowest terms, so pool the original fractions.
+#'
+#' `0/0` contributes nothing to the total, and `1/0` or `-1/0` give the same result
+#' (or `0/0` if there are both). Totals larger than 2^53 are missing, with a warning.
+#'
+#' @param x A [fraction()] vector.
+#' @param na.rm Should missing values be removed?
+#'
+#' @return A [fraction()] of size 1, which isn't reduced to lowest terms. It is
+#'   `0/0` if `x` is empty, and missing if any elements of `x` are missing.
+#' @examples
+#' x <- fraction(c(3, 30, 1), c(10, 100, 2))
+#' frac_pool(x)
+#' mean(x)
+#' @export
+frac_pool <- function(x, na.rm = FALSE) {
+  check_fraction(x)
+  # 0/0 is also removed, which doesn't change the result
+  x <- drop_missing(x, na.rm)
+  frac_restore(.Call(C_frac_pool, field_n(x), field_d(x)))
+}

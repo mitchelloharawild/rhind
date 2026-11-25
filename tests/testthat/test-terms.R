@@ -145,3 +145,50 @@ test_that("frac_approx() is the closest of all denominators", {
     expect_terms(frac_approx(fraction(-g$n, g$d), q), -best$n, best$d)
   }
 })
+
+test_that("frac_pool()", {
+  expect_terms(frac_pool(fraction(c(3, 30), c(10, 100))), 33, 110)
+  x <- fraction(c(1L, -5L, 0L), c(2L, 4L, 3L))
+  expect_identical(frac_pool(x), fraction(-4L, 9L))
+  # Not reduced
+  expect_identical(frac_pool(fraction(c(1L, 1L), c(2L, 2L))), fraction(2L, 4L))
+  expect_identical(frac_pool(fraction(0, c(2, 3))), fraction(0, 5))
+  expect_identical(frac_pool(fraction(2, 4)), fraction(2, 4))
+  expect_error(frac_pool(0.5), "fraction")
+
+  # Missing values
+  y <- c(x, NA)
+  expect_identical(frac_pool(y), fraction(NA))
+  expect_identical(frac_pool(y, na.rm = TRUE), frac_pool(x))
+  expect_identical(frac_pool(fraction(NA), na.rm = TRUE), fraction(0L, 0L))
+
+  # No trials
+  expect_identical(frac_pool(x[0]), fraction(0L, 0L))
+  expect_identical(frac_pool(fraction(double())), fraction(0, 0))
+  expect_identical(frac_pool(fraction(c(0, 0), 0)), fraction(0, 0))
+  expect_identical(frac_pool(c(x, fraction(0L, 0L))), frac_pool(x))
+  expect_identical(frac_pool(c(x, fraction(0L, 0L)), na.rm = TRUE), frac_pool(x))
+
+  # Infinite
+  expect_terms(frac_pool(fraction(c(1, 1), c(2, 0))), 1, 0)
+  expect_terms(frac_pool(fraction(c(5, -5), c(2, 0))), -1, 0)
+  expect_terms(frac_pool(fraction(c(5, 1, 0), 0)), 1, 0)
+  expect_terms(frac_pool(fraction(c(1, 3, -2), c(2, 0, 0))), 0, 0)
+  expect_identical(frac_pool(fraction(c(1, NA), 0)), fraction(NA_real_))
+  expect_terms(frac_pool(fraction(c(1, NA), 0), na.rm = TRUE), 1, 0)
+})
+
+test_that("frac_pool() limits", {
+  big <- .Machine$integer.max
+  expect_type(frac_num(frac_pool(fraction(c(big, 0L)))), "integer")
+  expect_identical(frac_pool(fraction(c(big, 1L))), fraction(2^31, 2))
+  # Only totals need to be representable
+  x <- fraction(c(2^53, 2^53, -2^53, 1 - 2^53, 1), c(1, 1, 2, 3, 2^53 - 8))
+  expect_terms(frac_pool(x[-5]), 1, 7)
+  expect_terms(frac_pool(x), 2, 2^53 - 1)
+  expect_warning(expect_true(is.na(frac_pool(x[1:2]))), "too large")
+  # 2^53 + 1 would be rounded to 2^53 as doubles
+  expect_warning(expect_true(is.na(frac_pool(fraction(1, c(2^53, 1))))), "too large")
+  expect_warning(expect_true(is.na(frac_pool(fraction(c(-2^53, -1))))), "too large")
+  expect_silent(frac_pool(fraction(c(2^53, 2^53, 1), c(1, 1, 0))))
+})

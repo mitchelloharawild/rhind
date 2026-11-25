@@ -73,6 +73,24 @@ round(fraction(2, 3), 2)
 
 Functions with results that usually aren't fractions, such as `sqrt()` and `exp()`, give doubles.
 
+## Rewriting
+
+`frac_rescale()` and `frac_align()` change the denominator without changing the value, and `frac_approx()` finds the closest fraction with a smaller denominator.
+
+```{r rewrite}
+frac_rescale(fraction(3, 4), 100)
+frac_align(fraction(1, c(2, 3)))
+frac_approx(fraction(355, 113), 10)
+```
+
+`frac_pool()` adds the numerators and denominators as they were written, unlike `mean()` which weights all fractions equally.
+
+```{r pool}
+x <- fraction(c(3, 30, 1), c(10, 100, 2))
+frac_pool(x)
+mean(x)
+```
+
 ## Plain numbers
 
 Whole numbers are fractions. If any element of a plain number isn't whole, the result is a double, as it is when adding an integer to a double. Convert with `as_fraction()` first to remain exact.
