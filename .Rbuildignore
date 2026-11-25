@@ -2,6 +2,7 @@
 ^\.Rproj\.user$
 ^LICENSE\.md$
 ^_dev$
+^hex$
 ^\.claude$
 ^docs$
 ^pkgdown$

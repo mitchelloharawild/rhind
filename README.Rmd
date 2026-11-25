@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# fraction
+# fraction <a href="https://pkg.mitchelloharawild.com/fraction/"><img src="man/figures/logo.svg" align="right" height="139" alt="fraction website" /></a>
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)

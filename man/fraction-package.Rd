@@ -5,6 +5,8 @@
 \alias{fraction-package}
 \title{fraction: Exact Fractions as Vectors}
 \description{
+\if{html}{\figure{logo.svg}{options: style='float: right' alt='logo' width='120'}}
+
 A semantic data type for fractions, storing the numerator and denominator separately as whole numbers. Fractions are displayed as they were written, while arithmetic, comparison and summaries are exact and give results in lowest terms (e.g. 1/3 + 1/6 is 1/2). The components are stored as integers or doubles, with integers becoming doubles when results need larger numbers.
 }
 \seealso{

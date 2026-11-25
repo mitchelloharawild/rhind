@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# fraction
+# fraction <a href="https://pkg.mitchelloharawild.com/fraction/"><img src="man/figures/logo.svg" align="right" height="139" alt="fraction website" /></a>
 
 <!-- badges: start -->
 
