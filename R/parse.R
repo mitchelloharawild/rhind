@@ -16,16 +16,21 @@ parse_fraction <- function(x, to = new_fraction(), ..., x_arg = "x",
     digits <- part(i)
     out <- rep_len(default, length(text))
     out[digits != ""] <- as.double(digits[digits != ""])
+    # Larger numbers may have been rounded to 2^53
+    rounded <- which(out == max_whole & !grepl("^0*9007199254740992$", digits))
+    out[rounded] <- Inf
     out
   }
   whole <- number(2, 0)
   n <- number(3, NA_real_)
   d <- number(4, 1)
+  # Dividing by d is exact enough to compare, but whole * d + n may be rounded
+  large <- ok & (
+    pmax(whole, n, d) > max_whole | (d > 0 & whole > (max_whole - n) / d)
+  )
   n <- whole * d + n
   n[part(1) == "-"] <- -n[part(1) == "-"]
   d[!ok] <- NA
-  # Beyond 2^53 may have been rounded to 2^53
-  large <- ok & (abs(n) >= max_whole | d >= max_whole | whole >= max_whole)
 
   bad <- !is.na(text) & (!ok | large)
   if (any(bad)) {

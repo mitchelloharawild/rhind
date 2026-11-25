@@ -37,6 +37,42 @@ test_that("text", {
   expect_identical(format(as_fraction(f)), f)
 })
 
+test_that("text up to 2^53", {
+  x <- fraction(c(2^53, -2^53, 1, 2^53, -2^53), c(3, 3, 2^53, 1, 2^53))
+  expect_identical(as_fraction(format(x)), x)
+  max <- "9007199254740992"
+  expect_terms(
+    as_fraction(paste0(c("00", "+000", "-0"), max, c("", "/03", "/0009007199254740992"))),
+    c(2^53, 2^53, -2^53), c(1, 3, 2^53)
+  )
+  # Mixed numbers
+  expect_terms(
+    as_fraction(c(
+      "0 9007199254740992/9007199254740992", "9007199254740992 0/1",
+      "-1 9007199254740991/1", "1 4503599627370496/4503599627370496",
+      "1 9007199254740992/0", "9007199254740992 1/0"
+    )),
+    c(2^53, 2^53, -2^53, 2^53, 2^53, 1),
+    c(2^53, 1, 1, 2^52, 0, 0)
+  )
+  for (large in c("9007199254740993", "009007199254740993", "9007199254740994",
+                  "10000000000000000", "99999999999999999", strrep("9", 400))) {
+    for (bad in paste0(
+      c("", "-", "", "1/", "", "", "0 ", "0 1/"),
+      large, c("", "", "/3", "", " 0/1", " 1/0", "/3", "")
+    )) {
+      expect_error(as_fraction(bad), class = "vctrs_error_cast")
+    }
+  }
+  # Totals of 2^53 + 1 and 2^53 + 2, from terms up to 2^53
+  for (bad in c(
+    "9007199254740991 2/1", "9007199254740992 1/1", "1 9007199254740992/1",
+    "3002399751580331 0/3", "-3002399751580331 1/3", "1 1/9007199254740992"
+  )) {
+    expect_error(as_fraction(bad), class = "vctrs_error_cast")
+  }
+})
+
 test_that("to other types", {
   x <- fraction(c(1, 3, NA, 1), c(2, 1, 1, 0))
   expect_identical(as.double(x), c(0.5, 3, NA, Inf))
