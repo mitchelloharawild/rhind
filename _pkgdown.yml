@@ -1,0 +1,25 @@
+url: https://pkg.mitchelloharawild.com/fraction/
+template:
+  bootstrap: 5
+  opengraph:
+    twitter:
+      creator: "@mitchoharawild"
+      card: summary
+
+reference:
+  - title: Creating fractions
+    contents:
+      - fraction
+      - new_fraction
+      - is_fraction
+      - as_fraction
+  - title: Components
+    contents:
+      - numerator
+      - denominator
+      - simplify
+  - title: Working with fractions
+    contents:
+      - fraction-arithmetic
+      - fraction-comparison
+      - format.fraction

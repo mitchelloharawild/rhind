@@ -1,0 +1,11 @@
+^fraction\.Rproj$
+^\.Rproj\.user$
+^LICENSE\.md$
+^_dev$
+^\.claude$
+^docs$
+^pkgdown$
+^_pkgdown\.yml$
+^cran-comments\.md$
+^README\.Rmd$
+^\.github$
