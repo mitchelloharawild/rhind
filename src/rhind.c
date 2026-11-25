@@ -304,6 +304,30 @@ SEXP frac_reduce(SEXP n, SEXP d) {
   return finish(&w, x.in != NULL);
 }
 
+/* The same values with denominators `to`, or the position (from 1) of the first
+ * which isn't exact */
+SEXP frac_rescale(SEXP n, SEXP d, SEXP to_) {
+  fracs x = read_fracs(n, d), to = read_fracs(to_, to_);
+  R_xlen_t len = recycled(&x, &to);
+  writer w = new_writer(len);
+  for (R_xlen_t i = 0; i < len; i++) {
+    CHECK_INTERRUPT(i);
+    frac v = get(&x, x.len == 1 ? 0 : i), t = get(&to, to.len == 1 ? 0 : i);
+    if (v.na || t.na) v = FRAC_NA;
+    else if (v.d != 0) {
+      v = make(v.n, v.d);
+      if (t.d % v.d != 0) {
+        UNPROTECT(2);
+        return Rf_ScalarReal((double) (i + 1));
+      }
+      v.n *= t.d / v.d;
+      v.d = t.d;
+    }
+    put(&w, i, v);
+  }
+  return finish(&w, x.in && to.in);
+}
+
 /* One step of a sum or product with a wide running total */
 static frac accumulate(int op, frac s, frac v, int *overflow) {
   if (s.na || v.na) return FRAC_NA;
@@ -499,6 +523,7 @@ static const R_CallMethodDef call_entries[] = {
   CALLDEF(frac_arith, 5),
   CALLDEF(frac_compare, 4),
   CALLDEF(frac_reduce, 2),
+  CALLDEF(frac_rescale, 3),
   CALLDEF(frac_accumulate, 5),
   CALLDEF(frac_extreme, 4),
   CALLDEF(frac_round, 4),

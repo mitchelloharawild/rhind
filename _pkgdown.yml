@@ -21,6 +21,9 @@ reference:
       - frac_num
       - frac_den
       - frac_simplify
+  - title: Rewriting fractions
+    contents:
+      - frac_rescale
   - title: Working with fractions
     contents:
       - fraction-arithmetic
