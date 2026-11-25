@@ -95,9 +95,9 @@ a denominator field d, printed as written.</div>
 <span><span class="va">x</span></span>
 <span><span class="co">#&gt; &lt;fraction&lt;double&gt;[4]&gt;</span></span>
 <span><span class="co">#&gt; [1] 2/4 1/3  -5  NA</span></span>
-<span><span class="fu"><a href="../reference/numerator.html">numerator</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/frac_num.html">frac_num</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1]  2  1 -5 NA</span></span>
-<span><span class="fu"><a href="../reference/numerator.html">denominator</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/frac_num.html">frac_den</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1]  4  3  1 NA</span></span></code></pre></div>
 <p>A denominator of zero is allowed: <code>1/0</code>, <code>-1/0</code>
 and <code>0/0</code> behave as <code>Inf</code>, <code>-Inf</code> and
@@ -125,7 +125,7 @@ aren’t whole.</p>
 <h2 id="arithmetic">Arithmetic<a class="anchor" aria-label="anchor" href="#arithmetic"></a>
 </h2>
 <p>Fractions are kept as written, but results are in lowest terms.
-<code><a href="../reference/numerator.html">simplify()</a></code> reduces a fraction without calculating
+<code><a href="../reference/frac_num.html">frac_simplify()</a></code> reduces a fraction without calculating
 anything.</p>
 <div class="float">
 <img src="figures/add.svg" style="width:100.0%" alt="Diagram of 1/3 + 1/6: terms are cross multiplied to 9/18, then reduced to 1/2."><div class="figcaption">Diagram of 1/3 + 1/6: terms are cross multiplied
@@ -138,7 +138,7 @@ to 9/18, then reduced to 1/2.</div>
 <span><span class="fu"><a href="../reference/fraction.html">fraction</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">^</span><span class="op">-</span><span class="fl">2</span></span>
 <span><span class="co">#&gt; &lt;fraction&lt;double&gt;[1]&gt;</span></span>
 <span><span class="co">#&gt; [1] 9/4</span></span>
-<span><span class="fu"><a href="../reference/numerator.html">simplify</a></span><span class="op">(</span><span class="fu"><a href="../reference/fraction.html">fraction</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/frac_num.html">frac_simplify</a></span><span class="op">(</span><span class="fu"><a href="../reference/fraction.html">fraction</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;fraction&lt;double&gt;[1]&gt;</span></span>
 <span><span class="co">#&gt; [1] 1/2</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="../reference/fraction.html">fraction</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
@@ -154,13 +154,41 @@ to 9/18, then reduced to 1/2.</div>
 <code><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt()</a></code> and <code><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp()</a></code>, give doubles.</p>
 </div>
 <div class="section level2">
+<h2 id="rewriting">Rewriting<a class="anchor" aria-label="anchor" href="#rewriting"></a>
+</h2>
+<p><code><a href="../reference/frac_rescale.html">frac_rescale()</a></code> and <code><a href="../reference/frac_rescale.html">frac_align()</a></code> change the
+denominator without changing the value, and <code><a href="../reference/frac_approx.html">frac_approx()</a></code>
+finds the closest fraction with a smaller denominator.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/frac_rescale.html">frac_rescale</a></span><span class="op">(</span><span class="fu"><a href="../reference/fraction.html">fraction</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span>, <span class="fl">100</span><span class="op">)</span></span>
+<span><span class="co">#&gt; &lt;fraction&lt;double&gt;[1]&gt;</span></span>
+<span><span class="co">#&gt; [1] 75/100</span></span>
+<span><span class="fu"><a href="../reference/frac_rescale.html">frac_align</a></span><span class="op">(</span><span class="fu"><a href="../reference/fraction.html">fraction</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; &lt;fraction&lt;double&gt;[2]&gt;</span></span>
+<span><span class="co">#&gt; [1] 3/6 2/6</span></span>
+<span><span class="fu"><a href="../reference/frac_approx.html">frac_approx</a></span><span class="op">(</span><span class="fu"><a href="../reference/fraction.html">fraction</a></span><span class="op">(</span><span class="fl">355</span>, <span class="fl">113</span><span class="op">)</span>, <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="co">#&gt; &lt;fraction&lt;double&gt;[1]&gt;</span></span>
+<span><span class="co">#&gt; [1] 22/7</span></span></code></pre></div>
+<p><code><a href="../reference/frac_pool.html">frac_pool()</a></code> adds the numerators and denominators as they
+were written, unlike <code><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean()</a></code> which weights all fractions
+equally.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fraction.html">fraction</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">30</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">100</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/frac_pool.html">frac_pool</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co">#&gt; &lt;fraction&lt;double&gt;[1]&gt;</span></span>
+<span><span class="co">#&gt; [1] 34/112</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co">#&gt; &lt;fraction&lt;double&gt;[1]&gt;</span></span>
+<span><span class="co">#&gt; [1] 11/30</span></span></code></pre></div>
+</div>
+<div class="section level2">
 <h2 id="plain-numbers">Plain numbers<a class="anchor" aria-label="anchor" href="#plain-numbers"></a>
 </h2>
 <p>Whole numbers are fractions. If any element of a plain number isn’t
 whole, the result is a double, as it is when adding an integer to a
 double. Convert with <code><a href="../reference/as_fraction.html">as_fraction()</a></code> first to remain
 exact.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fraction.html">fraction</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span></span>
 <span><span class="co">#&gt; &lt;fraction&lt;double&gt;[1]&gt;</span></span>
 <span><span class="co">#&gt; [1] 4/3</span></span>
@@ -173,7 +201,7 @@ exact.</p>
 combining with any double gives doubles. Use integers (such as
 <code>1L</code>) or <code><a href="../reference/as_fraction.html">as_fraction()</a></code> to combine as
 fractions.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="../reference/fraction.html">fraction</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.3333333 1.0000000</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="../reference/fraction.html">fraction</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span>, <span class="fl">1L</span><span class="op">)</span></span>
@@ -185,7 +213,7 @@ fractions.</p>
 </h2>
 <p>Comparisons use the exact value, regardless of the terms. So do
 sorting, matching and grouping.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fraction.html">fraction</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="../reference/fraction.html">fraction</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] TRUE</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="fu"><a href="../reference/fraction.html">fraction</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
@@ -206,7 +234,7 @@ too large for doubles are missing.</p>
 <img src="figures/storage.svg" style="width:100.0%" alt="Diagram of integer storage becoming double, and double becoming missing, when results are too large."><div class="figcaption">Diagram of integer storage becoming double, and
 double becoming missing, when results are too large.</div>
 </div>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fraction.html">fraction</a></span><span class="op">(</span><span class="va">.Machine</span><span class="op">$</span><span class="va">integer.max</span>, <span class="fl">2L</span><span class="op">)</span></span>
 <span><span class="va">x</span></span>
 <span><span class="co">#&gt; &lt;fraction&lt;integer&gt;[1]&gt;</span></span>
@@ -221,7 +249,7 @@ double becoming missing, when results are too large.</div>
 <p>Denominators grow quickly when adding fractions with many different
 denominators. Use <code><a href="https://rdrr.io/r/base/double.html" class="external-link">as.double()</a></code> for approximate results of
 any size.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="../reference/fraction.html">fraction</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">40</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;fraction&lt;double&gt;[1]&gt;</span></span>
 <span><span class="co">#&gt; [1] 2078178381193813/485721041551200</span></span>

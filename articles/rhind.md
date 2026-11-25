@@ -41,9 +41,9 @@ x <- fraction(c(2, 1, -5, NA), c(4, 3, 1, 1))
 x
 #> <fraction<double>[4]>
 #> [1] 2/4 1/3  -5  NA
-numerator(x)
+frac_num(x)
 #> [1]  2  1 -5 NA
-denominator(x)
+frac_den(x)
 #> [1]  4  3  1 NA
 ```
 
@@ -73,7 +73,7 @@ as.double(fraction(1, 3))
 ## Arithmetic
 
 Fractions are kept as written, but results are in lowest terms.
-[`simplify()`](https://pkg.mitchelloharawild.com/rhind/reference/numerator.md)
+[`frac_simplify()`](https://pkg.mitchelloharawild.com/rhind/reference/frac_num.md)
 reduces a fraction without calculating anything.
 
 ![Diagram of 1/3 + 1/6: terms are cross multiplied to 9/18, then reduced
@@ -90,7 +90,7 @@ fraction(1, 3) + fraction(1, 6)
 fraction(2, 3)^-2
 #> <fraction<double>[1]>
 #> [1] 9/4
-simplify(fraction(2, 4))
+frac_simplify(fraction(2, 4))
 #> <fraction<double>[1]>
 #> [1] 1/2
 sum(fraction(1, 1:10))
@@ -107,6 +107,44 @@ round(fraction(2, 3), 2)
 Functions with results that usually aren’t fractions, such as
 [`sqrt()`](https://rdrr.io/r/base/MathFun.html) and
 [`exp()`](https://rdrr.io/r/base/Log.html), give doubles.
+
+## Rewriting
+
+[`frac_rescale()`](https://pkg.mitchelloharawild.com/rhind/reference/frac_rescale.md)
+and
+[`frac_align()`](https://pkg.mitchelloharawild.com/rhind/reference/frac_rescale.md)
+change the denominator without changing the value, and
+[`frac_approx()`](https://pkg.mitchelloharawild.com/rhind/reference/frac_approx.md)
+finds the closest fraction with a smaller denominator.
+
+``` r
+
+frac_rescale(fraction(3, 4), 100)
+#> <fraction<double>[1]>
+#> [1] 75/100
+frac_align(fraction(1, c(2, 3)))
+#> <fraction<double>[2]>
+#> [1] 3/6 2/6
+frac_approx(fraction(355, 113), 10)
+#> <fraction<double>[1]>
+#> [1] 22/7
+```
+
+[`frac_pool()`](https://pkg.mitchelloharawild.com/rhind/reference/frac_pool.md)
+adds the numerators and denominators as they were written, unlike
+[`mean()`](https://rdrr.io/r/base/mean.html) which weights all fractions
+equally.
+
+``` r
+
+x <- fraction(c(3, 30, 1), c(10, 100, 2))
+frac_pool(x)
+#> <fraction<double>[1]>
+#> [1] 34/112
+mean(x)
+#> <fraction<double>[1]>
+#> [1] 11/30
+```
 
 ## Plain numbers
 

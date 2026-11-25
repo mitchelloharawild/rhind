@@ -33,7 +33,9 @@ as_fraction(x, ..., tolerance = 1e-12, max_d = 1e+09)
 - max_d:
 
   The largest denominator. If the tolerance isn't met, the last
-  convergent with a smaller denominator is used.
+  convergent with a smaller denominator is used. There may be a closer
+  fraction which isn't a convergent, see
+  [`frac_approx()`](https://pkg.mitchelloharawild.com/rhind/reference/frac_approx.md).
 
 ## Value
 

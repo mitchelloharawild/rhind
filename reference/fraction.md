@@ -54,7 +54,7 @@ respectively.
 [fraction-arithmetic](https://pkg.mitchelloharawild.com/rhind/reference/fraction-arithmetic.md),
 [fraction-comparison](https://pkg.mitchelloharawild.com/rhind/reference/fraction-comparison.md),
 [`as_fraction()`](https://pkg.mitchelloharawild.com/rhind/reference/as_fraction.md),
-[`numerator()`](https://pkg.mitchelloharawild.com/rhind/reference/numerator.md)
+[`frac_num()`](https://pkg.mitchelloharawild.com/rhind/reference/frac_num.md)
 
 ## Examples
 
@@ -68,7 +68,7 @@ x <- fraction(c(2, 30), c(4, 100))
 x
 #> <fraction<double>[2]>
 #> [1]    2/4 30/100
-simplify(x)
+frac_simplify(x)
 #> <fraction<double>[2]>
 #> [1]  1/2 3/10
 
