@@ -3,4 +3,4 @@
 ### All vignettes
 
 - [Exact
-  fractions](https://pkg.mitchelloharawild.com/fraction/articles/fraction.md):
+  fractions](https://pkg.mitchelloharawild.com/rhind/articles/rhind.md):

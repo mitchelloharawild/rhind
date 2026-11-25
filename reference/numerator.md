@@ -17,7 +17,7 @@ simplify(x)
 - x:
 
   A
-  [`fraction()`](https://pkg.mitchelloharawild.com/fraction/reference/fraction.md)
+  [`fraction()`](https://pkg.mitchelloharawild.com/rhind/reference/fraction.md)
   vector.
 
 ## Value

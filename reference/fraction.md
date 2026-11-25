@@ -3,7 +3,7 @@
 A `fraction` vector stores the numerator and denominator of each element
 separately, as whole numbers. Fractions are kept as they were written,
 so `fraction(2, 4)` is `2/4`, while results of
-[calculations](https://pkg.mitchelloharawild.com/fraction/reference/fraction-arithmetic.md)
+[calculations](https://pkg.mitchelloharawild.com/rhind/reference/fraction-arithmetic.md)
 are exact and in lowest terms.
 
 `new_fraction()` is a low-level constructor for developers. It requires
@@ -51,10 +51,10 @@ respectively.
 
 ## See also
 
-[fraction-arithmetic](https://pkg.mitchelloharawild.com/fraction/reference/fraction-arithmetic.md),
-[fraction-comparison](https://pkg.mitchelloharawild.com/fraction/reference/fraction-comparison.md),
-[`as_fraction()`](https://pkg.mitchelloharawild.com/fraction/reference/as_fraction.md),
-[`numerator()`](https://pkg.mitchelloharawild.com/fraction/reference/numerator.md)
+[fraction-arithmetic](https://pkg.mitchelloharawild.com/rhind/reference/fraction-arithmetic.md),
+[fraction-comparison](https://pkg.mitchelloharawild.com/rhind/reference/fraction-comparison.md),
+[`as_fraction()`](https://pkg.mitchelloharawild.com/rhind/reference/as_fraction.md),
+[`numerator()`](https://pkg.mitchelloharawild.com/rhind/reference/numerator.md)
 
 ## Examples
 

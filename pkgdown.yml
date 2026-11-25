@@ -2,8 +2,8 @@ pandoc: 3.8.3
 pkgdown: 2.2.1
 pkgdown_sha: ~
 articles:
-  fraction: fraction.html
-last_built: 2026-11-25T06:06Z
+  rhind: rhind.html
+last_built: 2026-11-25T06:21Z
 urls:
-  reference: https://pkg.mitchelloharawild.com/fraction/reference
-  article: https://pkg.mitchelloharawild.com/fraction/articles
+  reference: https://pkg.mitchelloharawild.com/rhind/reference
+  article: https://pkg.mitchelloharawild.com/rhind/articles

@@ -3,7 +3,7 @@
 Results are exact, and in lowest terms. Whole numbers are fractions, but
 results are ordinary doubles if any element of a plain number isn't
 whole, as these are usually not exact. Use
-[`as_fraction()`](https://pkg.mitchelloharawild.com/fraction/reference/as_fraction.md)
+[`as_fraction()`](https://pkg.mitchelloharawild.com/rhind/reference/as_fraction.md)
 to convert them first.
 
 ## Details

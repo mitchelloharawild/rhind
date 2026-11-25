@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Exact Fractions as Vectors • fraction</title>
+<title>Exact Fractions as Vectors • rhind</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
 <link rel="icon" type="”image/svg+xml”" href="favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -17,8 +17,8 @@
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Exact Fractions as Vectors">
 <meta name="description" content="A semantic data type for fractions, storing the numerator and denominator separately as whole numbers. Fractions are displayed as they were written, while arithmetic, comparison and summaries are exact and give results in lowest terms (e.g. 1/3 + 1/6 is 1/2). The components are stored as integers or doubles, with integers becoming doubles when results need larger numbers.">
 <meta property="og:description" content="A semantic data type for fractions, storing the numerator and denominator separately as whole numbers. Fractions are displayed as they were written, while arithmetic, comparison and summaries are exact and give results in lowest terms (e.g. 1/3 + 1/6 is 1/2). The components are stored as integers or doubles, with integers becoming doubles when results need larger numbers.">
-<meta property="og:image" content="https://pkg.mitchelloharawild.com/fraction/social-card.png">
-<meta property="og:image:alt" content="The fraction hex sticker">
+<meta property="og:image" content="https://pkg.mitchelloharawild.com/rhind/social-card.png">
+<meta property="og:image:alt" content="The rhind hex sticker">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:creator" content="@mitchoharawild">
 <meta name="twitter:site" content="@mitchoharawild">
@@ -29,7 +29,7 @@
 
     <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
 
-    <a class="navbar-brand me-2" href="index.html">fraction</a>
+    <a class="navbar-brand me-2" href="index.html">rhind</a>
 
     <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
 
@@ -40,7 +40,7 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item"><a class="nav-link" href="articles/fraction.html">Get started</a></li>
+<li class="nav-item"><a class="nav-link" href="articles/rhind.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
@@ -48,7 +48,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/mitchelloharawild/fraction/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/mitchelloharawild/rhind/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -58,13 +58,13 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header">
-<img src="logo.svg" class="logo" alt=""><h1 id="fraction-">fraction 
-<a class="anchor" aria-label="anchor" href="#fraction-"></a>
+<img src="logo.svg" class="logo" alt=""><h1 id="rhind-">rhind 
+<a class="anchor" aria-label="anchor" href="#rhind-"></a>
 </h1>
 </div>
 <!-- badges: start -->
 
-<p>fraction provides vectors of exact fractions, with the numerator and denominator stored separately as whole numbers.</p>
+<p>rhind provides vectors of exact fractions, with the numerator and denominator stored separately as whole numbers.</p>
 <ul>
 <li>Fractions are displayed as they were written, so <code>3/10</code> and <code>30/100</code> remain distinct to read.</li>
 <li>Arithmetic, comparison and summaries are exact, with results in lowest terms.</li>
@@ -76,13 +76,13 @@
 <p>You can install the development version of fraction from GitHub:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
-<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"mitchelloharawild/fraction"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"mitchelloharawild/rhind"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pkg.mitchelloharawild.com/fraction/">fraction</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pkg.mitchelloharawild.com/rhind/">rhind</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/fraction.html">fraction</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="reference/fraction.html">fraction</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">6</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;fraction&lt;double&gt;[1]&gt;</span></span>
@@ -108,7 +108,7 @@
 <span><span class="fu"><a href="reference/fraction.html">fraction</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="reference/as_fraction.html">as_fraction</a></span><span class="op">(</span><span class="fl">0.5</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;fraction&lt;double&gt;[1]&gt;</span></span>
 <span><span class="co">#&gt; [1] 5/6</span></span></code></pre></div>
-<p>See <code><a href="articles/fraction.html">vignette("fraction")</a></code> for details.</p>
+<p>See <code><a href="articles/rhind.html">vignette("rhind")</a></code> for details.</p>
 </div>
 <div class="section level2">
 <h2 id="caveats">Caveats<a class="anchor" aria-label="anchor" href="#caveats"></a>
@@ -125,8 +125,8 @@
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/mitchelloharawild/fraction/" class="external-link">Browse source code</a></li>
-<li><a href="https://github.com/mitchelloharawild/fraction/issues" class="external-link">Report a bug</a></li>
+<li><a href="https://github.com/mitchelloharawild/rhind/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/mitchelloharawild/rhind/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
@@ -142,7 +142,7 @@
 <div class="citation">
 <h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li><a href="authors.html#citation">Citing fraction</a></li>
+<li><a href="authors.html#citation">Citing rhind</a></li>
 </ul>
 </div>
 
@@ -157,7 +157,7 @@
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
-<li><a href="https://github.com/mitchelloharawild/fraction/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/mitchelloharawild/fraction/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://github.com/mitchelloharawild/rhind/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/mitchelloharawild/rhind/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
 </ul>
 </div>
 

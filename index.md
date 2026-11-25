@@ -1,6 +1,6 @@
-# fraction
+# rhind
 
-fraction provides vectors of exact fractions, with the numerator and
+rhind provides vectors of exact fractions, with the numerator and
 denominator stored separately as whole numbers.
 
 - Fractions are displayed as they were written, so `3/10` and `30/100`
@@ -17,14 +17,14 @@ You can install the development version of fraction from GitHub:
 ``` r
 
 # install.packages("pak")
-pak::pak("mitchelloharawild/fraction")
+pak::pak("mitchelloharawild/rhind")
 ```
 
 ## Usage
 
 ``` r
 
-library(fraction)
+library(rhind)
 
 fraction(1, 3) + fraction(1, 6)
 #> <fraction<double>[1]>
@@ -44,7 +44,7 @@ fraction(2, 4) == fraction(1, 2)
 
 Whole numbers are fractions, and other numbers give doubles unless
 converted with
-[`as_fraction()`](https://pkg.mitchelloharawild.com/fraction/reference/as_fraction.md).
+[`as_fraction()`](https://pkg.mitchelloharawild.com/rhind/reference/as_fraction.md).
 
 ``` r
 
@@ -59,7 +59,7 @@ fraction(1, 3) + as_fraction(0.5)
 ```
 
 See
-[`vignette("fraction")`](https://pkg.mitchelloharawild.com/fraction/articles/fraction.md)
+[`vignette("rhind")`](https://pkg.mitchelloharawild.com/rhind/articles/rhind.md)
 for details.
 
 ## Caveats

@@ -18,7 +18,7 @@ as_fraction(x, ..., tolerance = 1e-12, max_d = 1e+09)
 - x:
 
   A numeric, character or
-  [`fraction()`](https://pkg.mitchelloharawild.com/fraction/reference/fraction.md)
+  [`fraction()`](https://pkg.mitchelloharawild.com/rhind/reference/fraction.md)
   vector. Text can be a whole number (`"3"`), a fraction (`"3/4"`) or a
   mixed number (`"1 3/4"`).
 
@@ -38,7 +38,7 @@ as_fraction(x, ..., tolerance = 1e-12, max_d = 1e+09)
 ## Value
 
 A
-[`fraction()`](https://pkg.mitchelloharawild.com/fraction/reference/fraction.md)
+[`fraction()`](https://pkg.mitchelloharawild.com/rhind/reference/fraction.md)
 vector. Text which isn't a fraction is an error, except `NA` and empty
 strings which are missing. Text is stored as integers if possible.
 
