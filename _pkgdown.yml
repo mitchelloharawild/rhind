@@ -25,6 +25,7 @@ reference:
     contents:
       - frac_rescale
       - frac_align
+      - frac_approx
   - title: Working with fractions
     contents:
       - fraction-arithmetic

@@ -94,3 +94,54 @@ test_that("frac_align() limits", {
     "too large"
   )
 })
+
+test_that("frac_approx()", {
+  expect_terms(frac_approx(fraction(355, 113), 10), 22, 7)
+  # Semiconvergents, which aren't found by as_fraction()
+  expect_terms(frac_approx(as_fraction(pi), 100), 311, 99)
+  expect_terms(as_fraction(pi, max_d = 100), 22, 7)
+  x <- fraction(c(2L, -4L, 0L, 100L, 1L), c(4L, 6L, 9L, 1L, 4L))
+  out <- frac_approx(x, 3)
+  expect_terms(out, c(1, -2, 0, 100, 1), c(2, 3, 1, 1, 3))
+  expect_type(frac_num(out), "integer")
+  expect_type(frac_num(frac_approx(fraction(1, 4), 3L)), "double")
+  # Ties are the smaller denominator, then towards zero
+  expect_terms(frac_approx(fraction(c(5, -5), 12), 3), c(1, -1), c(2, 2))
+  expect_terms(frac_approx(fraction(c(-3, -1, 1, 3, 5), 2), 1), c(-1, 0, 0, 1, 2), rep(1, 5))
+
+  expect_terms(frac_approx(fraction(c(NA, 1, -1, 0), c(1, 0, 0, 0)), 5), c(NA, 1, -1, 0), c(NA, 0, 0, 0))
+  expect_identical(frac_approx(x[0], 5), x[0])
+
+  # Not distinguishable as doubles
+  x <- fraction(c(2^53 - 1, 1 - 2^53, 1, 2^53 - 1), c(2^53, 2^53, 2^53, 2))
+  expect_terms(
+    frac_approx(x, 2^53 - 1),
+    c(2^53 - 2, 2 - 2^53, 1, 2^53 - 1), c(2^53 - 1, 2^53 - 1, 2^53 - 1, 2)
+  )
+  expect_terms(frac_approx(x, 1), c(1, -1, 0, 2^52 - 1), rep(1, 4))
+  expect_identical(frac_approx(x, 2^53), x)
+
+  for (bad in list(0, -1, NA, Inf, 2^54, 1.5, 1:2, numeric(), "2", NULL)) {
+    expect_error(frac_approx(x, bad), "max_d")
+  }
+  expect_error(frac_approx(0.5, 2), "fraction")
+})
+
+test_that("frac_approx() is the closest of all denominators", {
+  max <- 12
+  g <- expand.grid(n = 0:50, d = 1:25)
+  # In order of preference. Errors are multiples of 1 / (d * lcd).
+  lcd <- 27720
+  best <- list(n = g$n, d = g$d, error = rep(Inf, nrow(g)))
+  for (q in seq_len(max)) {
+    for (p in list((g$n * q) %/% g$d, (g$n * q) %/% g$d + 1)) {
+      error <- abs(g$n * q - p * g$d) * (lcd / q)
+      closer <- error < best$error
+      best$n[closer] <- p[closer]
+      best$d[closer] <- q
+      best$error[closer] <- error[closer]
+    }
+    expect_terms(frac_approx(fraction(g$n, g$d), q), best$n, best$d)
+    expect_terms(frac_approx(fraction(-g$n, g$d), q), -best$n, best$d)
+  }
+})

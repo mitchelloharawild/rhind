@@ -18,7 +18,8 @@ number (\code{"3"}), a fraction (\code{"3/4"}) or a mixed number (\code{"1 3/4"}
 \item{tolerance}{The largest relative error of the approximation.}
 
 \item{max_d}{The largest denominator. If the tolerance isn't met, the last
-convergent with a smaller denominator is used.}
+convergent with a smaller denominator is used. There may be a closer fraction
+which isn't a convergent, see \code{\link[=frac_approx]{frac_approx()}}.}
 }
 \value{
 A \code{\link[=fraction]{fraction()}} vector. Text which isn't a fraction is an error, except

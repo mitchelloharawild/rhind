@@ -9,7 +9,8 @@
 #' @param ... Not used.
 #' @param tolerance The largest relative error of the approximation.
 #' @param max_d The largest denominator. If the tolerance isn't met, the last
-#'   convergent with a smaller denominator is used.
+#'   convergent with a smaller denominator is used. There may be a closer fraction
+#'   which isn't a convergent, see [frac_approx()].
 #'
 #' @return A [fraction()] vector. Text which isn't a fraction is an error, except
 #'   `NA` and empty strings which are missing. Text is stored as integers if
@@ -48,7 +49,7 @@ as_fraction.double <- function(x, ..., tolerance = 1e-12, max_d = 1e9) {
   check_number(tolerance, "tolerance", 0, 1)
   check_number(max_d, "max_d", 1, max_whole)
   x <- as_bare_number(x)
-  frac_restore(.Call(C_frac_approx, x, tolerance, max_d))
+  frac_restore(.Call(C_frac_convergent, x, tolerance, max_d))
 }
 
 check_number <- function(x, arg, min, max, call = caller_env()) {

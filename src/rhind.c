@@ -481,7 +481,7 @@ SEXP frac_order(SEXP n, SEXP d) {
 }
 
 /* The first continued fraction convergent within a relative tolerance */
-SEXP frac_approx(SEXP x_, SEXP tol_, SEXP max_d_) {
+SEXP frac_convergent(SEXP x_, SEXP tol_, SEXP max_d_) {
   const double *x = REAL_RO(x_);
   double tol = Rf_asReal(tol_), max_d = Rf_asReal(max_d_);
   R_xlen_t len = XLENGTH(x_);
@@ -510,6 +510,46 @@ SEXP frac_approx(SEXP x_, SEXP tol_, SEXP max_d_) {
     put(&w, i, make((i128) (x[i] < 0 ? -n1 : n1), (i128) d1));
   }
   return finish(&w, 0);
+}
+
+/* Closest to x (in lowest terms, with x.d > max_d >= 1) of denominators up to
+ * max_d. Ties are the smaller denominator, then (if both are whole) towards zero. */
+static frac closest(frac x, i128 max_d) {
+  i128 a = x.n < 0 ? -x.n : x.n, b = x.d;
+  i128 n0 = 0, d0 = 1, n1 = 1, d1 = 0;
+  /* Ends before b = 0, since the last convergent is x */
+  while (1) {
+    i128 q = a / b, r = a - q * b;
+    if (d0 + q * d1 > max_d) break;
+    i128 n2 = n0 + q * n1, d2 = d0 + q * d1;
+    n0 = n1; d0 = d1; n1 = n2; d1 = d2;
+    a = b; b = r;
+  }
+  /* The last convergent is b / (d1 * x.d) from x, on the other side to the
+   * largest semiconvergent, and they are 1 / (d1 * d2) apart */
+  i128 k = (max_d - d0) / d1, n2 = n0 + k * n1, d2 = d0 + k * d1;
+  if (2 * b * d2 > x.d) {
+    n1 = n2;
+    d1 = d2;
+  }
+  frac out = {x.n < 0 ? -n1 : n1, d1, 0};
+  return out;
+}
+
+SEXP frac_approx(SEXP n, SEXP d, SEXP max_d_) {
+  fracs x = read_fracs(n, d);
+  i128 max_d = (i128) Rf_asReal(max_d_);
+  writer w = new_writer(x.len);
+  for (R_xlen_t i = 0; i < x.len; i++) {
+    CHECK_INTERRUPT(i);
+    frac v = get(&x, i);
+    if (!v.na) {
+      v = make(v.n, v.d);
+      if (v.d > max_d) v = closest(v, max_d);
+    }
+    put(&w, i, v);
+  }
+  return finish(&w, x.in != NULL);
 }
 
 /* Missing values are NA, and d = 1 is omitted */
@@ -544,6 +584,7 @@ static const R_CallMethodDef call_entries[] = {
   CALLDEF(frac_extreme, 4),
   CALLDEF(frac_round, 4),
   CALLDEF(frac_order, 2),
+  CALLDEF(frac_convergent, 3),
   CALLDEF(frac_approx, 3),
   CALLDEF(frac_format, 2),
   {NULL, NULL, 0}
