@@ -10,6 +10,7 @@ __extension__ typedef __int128 i128;
 __extension__ typedef unsigned __int128 u128;
 
 #define MAX_WHOLE 9007199254740992.0 /* 2^53 */
+#define I128_MIN (-(i128) (~(u128) 0 >> 1) - 1)
 
 /* Reading ------------------------------------------------------------------ */
 
@@ -325,8 +326,7 @@ static frac accumulate(int op, frac s, frac v, int *overflow) {
       __builtin_mul_overflow(p.d, q.d, &d);
   }
   /* Most negative number can't be negated */
-  if (bad || n == -n) {
-    if (!bad && n == 0) return make(0, d);
+  if (bad || n == I128_MIN) {
     *overflow = 1;
     return FRAC_NA;
   }

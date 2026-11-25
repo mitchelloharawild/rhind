@@ -93,6 +93,14 @@ test_that("overflow", {
   expect_terms(sum(fraction(1, 1:40)), 2078178381193813, 485721041551200)
   expect_warning(expect_true(is.na(sum(fraction(1, 1:60)))), "too large")
   expect_silent(sum(fraction(c(1, NA), 2)))
+  # Totals are less than 2^127 in size
+  p <- fraction(c(2^53, 2^53, 2^21, 1, 1), c(1, 1, 1, 2^53, 2^53))
+  expect_terms(prod(p / c(1, 1, 2, 1, 1)), 2^20, 1)
+  expect_warning(expect_true(is.na(prod(p))), "too large")
+  expect_warning(expect_true(is.na(prod(p * c(-1, 1, 1, 1, 1)))), "too large")
+  # Zero is reduced
+  expect_terms(sum(fraction(c(1, -1), 3)), 0, 1)
+  expect_terms(prod(fraction(c(1, 0), 3)), 0, 1)
 })
 
 test_that("summaries", {
