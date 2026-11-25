@@ -44,8 +44,7 @@ obj_print_data.fraction <- function(x, ..., max = getOption("max.print")) {
   invisible(x)
 }
 
-# Registered in .onLoad()
-#' @exportS3Method NULL
+#' @exportS3Method pillar::pillar_shaft
 pillar_shaft.fraction <- function(x, ...) {
   pillar::new_pillar_shaft_simple(frac_format(x), align = "right")
 }
