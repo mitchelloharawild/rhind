@@ -49,7 +49,7 @@ fraction(1, 3) + fraction(1, 6)
 # The fraction is kept as written
 x <- fraction(c(2, 30), c(4, 100))
 x
-simplify(x)
+frac_simplify(x)
 
 # Stored as integers
 fraction(1:3, 4L)

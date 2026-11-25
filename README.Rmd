@@ -44,7 +44,7 @@ fraction(1, 3) + fraction(1, 6)
 
 x <- fraction(c(2, 30), c(4, 100))
 x
-simplify(x)
+frac_simplify(x)
 
 fraction(2, 4) == fraction(1, 2)
 ```

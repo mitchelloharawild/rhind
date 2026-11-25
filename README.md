@@ -42,7 +42,7 @@ x <- fraction(c(2, 30), c(4, 100))
 x
 #> <fraction<double>[2]>
 #> [1]    2/4 30/100
-simplify(x)
+frac_simplify(x)
 #> <fraction<double>[2]>
 #> [1]  1/2 3/10
 

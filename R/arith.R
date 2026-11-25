@@ -107,7 +107,7 @@ operand <- function(x, arg) {
 }
 
 all_whole <- function(x) {
-  d <- field_d(simplify(x))
+  d <- field_d(frac_simplify(x))
   all(is.na(d) | d == 1)
 }
 

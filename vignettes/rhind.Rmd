@@ -58,14 +58,14 @@ as.double(fraction(1, 3))
 
 ## Arithmetic
 
-Fractions are kept as written, but results are in lowest terms. `simplify()` reduces a fraction without calculating anything.
+Fractions are kept as written, but results are in lowest terms. `frac_simplify()` reduces a fraction without calculating anything.
 
 ![Diagram of 1/3 + 1/6: terms are cross multiplied to 9/18, then reduced to 1/2.](figures/add.svg){width=100%}
 
 ```{r arith}
 fraction(1, 3) + fraction(1, 6)
 fraction(2, 3)^-2
-simplify(fraction(2, 4))
+frac_simplify(fraction(2, 4))
 sum(fraction(1, 1:10))
 mean(fraction(1:3, 4))
 round(fraction(2, 3), 2)

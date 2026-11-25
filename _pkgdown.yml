@@ -20,7 +20,7 @@ reference:
     contents:
       - numerator
       - denominator
-      - simplify
+      - frac_simplify
   - title: Working with fractions
     contents:
       - fraction-arithmetic

@@ -32,7 +32,7 @@ vec_math.fraction <- function(.fn, .x, ...) {
     ceiling = round_fraction(.x, 2L),
     trunc = round_fraction(.x, 3L),
     round = math_round(.x, ...),
-    abs = simplify(new_fraction(abs(field_n(.x)), field_d(.x))),
+    abs = frac_simplify(new_fraction(abs(field_n(.x)), field_d(.x))),
     sign = math_sign(.x),
     any = , all = {
       cli_abort("{.fn {(.fn)}} is not supported for {.cls fraction} vectors.", call = NULL)
@@ -65,7 +65,7 @@ frac_which_extreme <- function(x, sign, cumulative) {
 }
 
 frac_cumulative_extreme <- function(x, sign) {
-  simplify(x[frac_which_extreme(x, sign, TRUE)])
+  frac_simplify(x[frac_which_extreme(x, sign, TRUE)])
 }
 
 math_extreme <- function(.fn, .x, ..., na.rm = FALSE) {
@@ -81,7 +81,7 @@ math_extreme <- function(.fn, .x, ..., na.rm = FALSE) {
     if (.fn != "max") frac_which_extreme(.x, 1L, FALSE),
     if (.fn != "min") frac_which_extreme(.x, -1L, FALSE)
   )
-  simplify(.x[at])
+  frac_simplify(.x[at])
 }
 
 # Modes are floor, ceiling, trunc, and round (half to even)

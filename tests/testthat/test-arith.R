@@ -7,7 +7,7 @@ test_that("exact and in lowest terms", {
   expect_terms(-fraction(2L, 4L), -2, 4)
   expect_identical(+fraction(2, 4), fraction(2, 4))
   x <- fraction(1:3, 4L)
-  expect_identical(x + fraction(1L, 4L), simplify(fraction(2:4, 4L)))
+  expect_identical(x + fraction(1L, 4L), frac_simplify(fraction(2:4, 4L)))
   expect_error(x + fraction(1:2, 1L), class = "vctrs_error_incompatible_size")
   expect_length(x[0] + 1, 0)
 })
@@ -21,7 +21,7 @@ test_that("agrees with doubles", {
     f <- match.fun(op)
     out <- f(x, y)
     expect_equal(as.double(out), f(g$a / g$b, g$c / g$e), info = op)
-    expect_identical(out, simplify(out))
+    expect_identical(out, frac_simplify(out))
   }
   for (op in c("==", "!=", "<", "<=", ">", ">=")) {
     f <- match.fun(op)

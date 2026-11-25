@@ -3,14 +3,14 @@
 \name{numerator}
 \alias{numerator}
 \alias{denominator}
-\alias{simplify}
+\alias{frac_simplify}
 \title{Components of fractions}
 \usage{
 numerator(x)
 
 denominator(x)
 
-simplify(x)
+frac_simplify(x)
 }
 \arguments{
 \item{x}{A \code{\link[=fraction]{fraction()}} vector.}
@@ -18,7 +18,7 @@ simplify(x)
 \value{
 \itemize{
 \item \code{numerator()} and \code{denominator()}: integer or double vectors, as stored.
-\item \code{simplify()}: \code{x} in lowest terms.
+\item \code{frac_simplify()}: \code{x} in lowest terms.
 }
 }
 \description{
@@ -28,5 +28,5 @@ Components of fractions
 x <- fraction(c(2, 30), c(4, 100))
 numerator(x)
 denominator(x)
-simplify(x)
+frac_simplify(x)
 }

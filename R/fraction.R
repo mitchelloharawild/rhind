@@ -34,7 +34,7 @@ max_whole <- 2^53
 #' # The fraction is kept as written
 #' x <- fraction(c(2, 30), c(4, 100))
 #' x
-#' simplify(x)
+#' frac_simplify(x)
 #'
 #' # Stored as integers
 #' fraction(1:3, 4L)
@@ -149,13 +149,13 @@ frac_restore <- function(x) new_fraction(x$n, x$d)
 #'
 #' @return
 #' * `numerator()` and `denominator()`: integer or double vectors, as stored.
-#' * `simplify()`: `x` in lowest terms.
+#' * `frac_simplify()`: `x` in lowest terms.
 #'
 #' @examples
 #' x <- fraction(c(2, 30), c(4, 100))
 #' numerator(x)
 #' denominator(x)
-#' simplify(x)
+#' frac_simplify(x)
 #' @export
 numerator <- function(x) {
   check_fraction(x)
@@ -171,7 +171,7 @@ denominator <- function(x) {
 
 #' @rdname numerator
 #' @export
-simplify <- function(x) {
+frac_simplify <- function(x) {
   check_fraction(x)
   frac_restore(.Call(C_frac_reduce, field_n(x), field_d(x)))
 }
@@ -181,7 +181,7 @@ simplify <- function(x) {
 # Equal values are equal in lowest terms
 #' @export
 vec_proxy_equal.fraction <- function(x, ...) {
-  x <- simplify(x)
+  x <- frac_simplify(x)
   n <- as.double(field_n(x))
   d <- as.double(field_d(x))
   nan <- which(n == 0 & d == 0)
@@ -202,7 +202,7 @@ vec_proxy_order.fraction <- function(x, ...) {
 # Matches numbers which are exactly the value of the fraction
 #' @exportS3Method NULL
 mtfrm.fraction <- function(x) {
-  x <- simplify(x)
+  x <- frac_simplify(x)
   out <- frac_format(x)
   exact <- which(field_d(x) == 0 | log2(field_d(x)) %% 1 == 0)
   out[exact] <- as.character(frac_value(x)[exact])

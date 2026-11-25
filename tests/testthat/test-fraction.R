@@ -43,10 +43,10 @@ test_that("missing values", {
   expect_identical(is.na(fraction(c(1, 0), 0)), c(FALSE, TRUE))
 })
 
-test_that("simplify", {
+test_that("frac_simplify()", {
   x <- fraction(c(2L, -30L, 0L, 5L, -5L, 0L, NA), c(4L, 100L, 7L, 0L, 0L, 0L, 1L))
-  expect_terms(simplify(x), c(1, -3, 0, 1, -1, 0, NA), c(2, 10, 1, 0, 0, 0, NA))
-  expect_type(numerator(simplify(x)), "integer")
+  expect_terms(frac_simplify(x), c(1, -3, 0, 1, -1, 0, NA), c(2, 10, 1, 0, 0, 0, NA))
+  expect_type(numerator(frac_simplify(x)), "integer")
 })
 
 test_that("subset and assign keep terms", {
