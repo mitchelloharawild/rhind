@@ -103,7 +103,7 @@ check_all_na <- function(op, x, y, lgl) {
 operand <- function(x, arg) {
   if (is_fraction(x)) return(x)
   x <- as_bare_number(x, arg, call = NULL)
-  if (all(whole(x))) fraction(x) else x
+  if (all(is_whole(x))) fraction(x) else x
 }
 
 all_whole <- function(x) {

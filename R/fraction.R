@@ -98,7 +98,7 @@ as_bare_number <- function(x, arg = "x", call = caller_env()) {
 }
 
 # Element which can be stored exactly
-whole <- function(x) {
+is_whole <- function(x) {
   if (is.integer(x)) return(rep_len(TRUE, length(x)))
   is.na(x) & !is.nan(x) | is.finite(x) & abs(x) <= max_whole & x == trunc(x)
 }
@@ -108,7 +108,7 @@ as_whole <- function(x, arg, call = caller_env()) {
   x <- as_bare_number(x, arg, call)
   if (is.double(x)) {
     x[is.nan(x)] <- NA
-    if (!all(whole(x))) {
+    if (!all(is_whole(x))) {
       cli_abort(
         c(
           "{.arg {arg}} must be whole numbers no larger than 2^53.",

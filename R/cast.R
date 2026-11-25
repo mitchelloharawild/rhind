@@ -98,7 +98,7 @@ vec_cast.fraction.fraction <- function(x, to, ..., x_arg = "", to_arg = "",
 vec_cast.fraction.double <- function(x, to, ..., x_arg = "", to_arg = "",
                                      call = caller_env()) {
   x <- as_bare_number(x, "x", call = call)
-  lossy <- !whole(x)
+  lossy <- !is_whole(x)
   out <- x
   out[lossy] <- NA
   out <- maybe_lossy_cast(
