@@ -50,8 +50,8 @@ test_that("special values agree with doubles", {
 test_that("plain numbers", {
   x <- fraction(1L, c(2L, 4L))
   expect_terms(x + 1L, c(3, 5), c(2, 4))
-  expect_type(numerator(x + 1L), "integer")
-  expect_type(numerator(x + 1), "double")
+  expect_type(frac_num(x + 1L), "integer")
+  expect_type(frac_num(x + 1), "double")
   expect_terms(1 - x, c(1, 3), c(2, 4))
   expect_terms(x * NA_real_, c(NA, NA), c(NA, NA))
   expect_terms(x + NA, c(NA, NA), c(NA, NA))
@@ -82,8 +82,8 @@ test_that("powers", {
 test_that("overflow", {
   big <- .Machine$integer.max
   x <- fraction(big, 1L)
-  expect_type(numerator(x + 0L), "integer")
-  expect_type(numerator(x + 1L), "double")
+  expect_type(frac_num(x + 0L), "integer")
+  expect_type(frac_num(x + 1L), "double")
   expect_terms(x + 1L, 2^31, 1)
   expect_terms(fraction(1, 2^53) * fraction(2^53, 1), 1, 1)
   expect_warning(y <- fraction(c(1, 2^53)) + 1, "too large")

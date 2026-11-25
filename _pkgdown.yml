@@ -18,8 +18,8 @@ reference:
       - as_fraction
   - title: Components
     contents:
-      - numerator
-      - denominator
+      - frac_num
+      - frac_den
       - frac_simplify
   - title: Working with fractions
     contents:

@@ -56,5 +56,5 @@ fraction(1:3, 4L)
 }
 \seealso{
 \link{fraction-arithmetic}, \link{fraction-comparison}, \code{\link[=as_fraction]{as_fraction()}},
-\code{\link[=numerator]{numerator()}}
+\code{\link[=frac_num]{frac_num()}}
 }

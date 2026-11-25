@@ -3,8 +3,8 @@ test_that("constructs", {
   expect_s3_class(x, c("fraction", "vctrs_rcrd", "vctrs_vctr"), exact = TRUE)
   expect_true(is_fraction(x))
   expect_false(is_fraction(0.5))
-  expect_identical(numerator(x), c(2, 1))
-  expect_identical(denominator(x), c(4, 3))
+  expect_identical(frac_num(x), c(2, 1))
+  expect_identical(frac_den(x), c(4, 3))
   expect_length(fraction(), 0)
   expect_identical(fraction(1L, 1:3), fraction(c(1L, 1L, 1L), 1:3))
   expect_identical(fraction(c(a = 1), 2), fraction(1, 2))
@@ -17,28 +17,28 @@ test_that("constructs", {
   expect_error(new_fraction(1L, 1), "same type")
   expect_error(new_fraction(1, c(1, 2)), "same size")
   expect_error(new_fraction("1", "2"), "numbers")
-  expect_error(numerator(1), "fraction")
+  expect_error(frac_num(1), "fraction")
 })
 
 test_that("storage follows inputs", {
-  expect_type(numerator(fraction(1L, 2L)), "integer")
-  expect_type(denominator(fraction(1L)), "integer")
-  expect_type(numerator(fraction(1L, 2)), "double")
-  expect_type(denominator(fraction(1, 2L)), "double")
+  expect_type(frac_num(fraction(1L, 2L)), "integer")
+  expect_type(frac_den(fraction(1L)), "integer")
+  expect_type(frac_num(fraction(1L, 2)), "double")
+  expect_type(frac_den(fraction(1, 2L)), "double")
 })
 
 test_that("sign is in the numerator", {
   expect_terms(fraction(c(1, -1, 0), c(-2, -2, -2)), c(-1, 1, 0), c(2, 2, 2))
   expect_terms(fraction(1L, -2L), -1, 2)
-  expect_identical(1 / numerator(fraction(0, -2)), Inf)
+  expect_identical(1 / frac_num(fraction(0, -2)), Inf)
 })
 
 test_that("missing values", {
   x <- fraction(c(1L, NA, 1L), c(2L, 2L, NA))
   expect_identical(is.na(x), c(FALSE, TRUE, TRUE))
   expect_true(anyNA(x))
-  expect_identical(numerator(x), c(1L, NA, NA))
-  expect_identical(denominator(x), c(2L, NA, NA))
+  expect_identical(frac_num(x), c(1L, NA, NA))
+  expect_identical(frac_den(x), c(2L, NA, NA))
   expect_identical(is.na(fraction(NA)), TRUE)
   expect_identical(is.na(fraction(c(1, 0), 0)), c(FALSE, TRUE))
 })
@@ -46,7 +46,7 @@ test_that("missing values", {
 test_that("frac_simplify()", {
   x <- fraction(c(2L, -30L, 0L, 5L, -5L, 0L, NA), c(4L, 100L, 7L, 0L, 0L, 0L, 1L))
   expect_terms(frac_simplify(x), c(1, -3, 0, 1, -1, 0, NA), c(2, 10, 1, 0, 0, 0, NA))
-  expect_type(numerator(frac_simplify(x)), "integer")
+  expect_type(frac_num(frac_simplify(x)), "integer")
 })
 
 test_that("subset and assign keep terms", {

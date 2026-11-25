@@ -27,7 +27,7 @@ max_whole <- 2^53
 #'   `is_fraction()` returns `TRUE` or `FALSE`.
 #'
 #' @seealso [fraction-arithmetic], [fraction-comparison], [as_fraction()],
-#'   [numerator()]
+#'   [frac_num()]
 #' @examples
 #' fraction(1, 3) + fraction(1, 6)
 #'
@@ -148,28 +148,28 @@ frac_restore <- function(x) new_fraction(x$n, x$d)
 #' @param x A [fraction()] vector.
 #'
 #' @return
-#' * `numerator()` and `denominator()`: integer or double vectors, as stored.
+#' * `frac_num()` and `frac_den()`: integer or double vectors, as stored.
 #' * `frac_simplify()`: `x` in lowest terms.
 #'
 #' @examples
 #' x <- fraction(c(2, 30), c(4, 100))
-#' numerator(x)
-#' denominator(x)
+#' frac_num(x)
+#' frac_den(x)
 #' frac_simplify(x)
 #' @export
-numerator <- function(x) {
+frac_num <- function(x) {
   check_fraction(x)
   field_n(x)
 }
 
-#' @rdname numerator
+#' @rdname frac_num
 #' @export
-denominator <- function(x) {
+frac_den <- function(x) {
   check_fraction(x)
   field_d(x)
 }
 
-#' @rdname numerator
+#' @rdname frac_num
 #' @export
 frac_simplify <- function(x) {
   check_fraction(x)

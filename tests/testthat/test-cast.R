@@ -27,8 +27,8 @@ test_that("other types", {
 test_that("text", {
   x <- as_fraction(c("2/4", " -3 / 4 ", "3", "1 3/4", "-1 1/2", "+1/2", "1/0", NA, ""))
   expect_terms(x, c(2, -3, 3, 7, -3, 1, 1, NA, NA), c(4, 4, 1, 4, 2, 2, 0, NA, NA))
-  expect_type(numerator(x), "integer")
-  expect_type(numerator(as_fraction("3000000000/7")), "double")
+  expect_type(frac_num(x), "integer")
+  expect_type(frac_num(as_fraction("3000000000/7")), "double")
   for (bad in c("a", "1/", "/2", "1.5", "1/2/3", "1 2", "1/-2", "--1", "99999999999999999")) {
     expect_error(as_fraction(bad), class = "vctrs_error_cast")
   }
