@@ -6,7 +6,7 @@
 #' @importFrom cli cli_abort
 #' @importFrom rlang caller_env
 #' @importFrom stats median quantile
-#' @useDynLib fraction, .registration = TRUE, .fixes = "C_"
+#' @useDynLib rhind, .registration = TRUE, .fixes = "C_"
 ## usethis namespace: end
 NULL
 

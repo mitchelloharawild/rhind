@@ -1,10 +1,10 @@
-url: https://pkg.mitchelloharawild.com/fraction/
+url: https://pkg.mitchelloharawild.com/rhind/
 template:
   bootstrap: 5
   opengraph:
     image:
       src: social-card.png
-      alt: "The fraction hex sticker"
+      alt: "The rhind hex sticker"
     twitter:
       creator: "@mitchoharawild"
       card: summary

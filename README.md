@@ -1,16 +1,16 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# fraction <a href="https://pkg.mitchelloharawild.com/fraction/"><img src="man/figures/logo.svg" align="right" height="139" alt="fraction website" /></a>
+# rhind <a href="https://pkg.mitchelloharawild.com/rhind/"><img src="man/figures/logo.svg" align="right" height="139" alt="rhind website" /></a>
 
 <!-- badges: start -->
 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![R-CMD-check](https://github.com/mitchelloharawild/fraction/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mitchelloharawild/fraction/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/mitchelloharawild/rhind/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mitchelloharawild/rhind/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-fraction provides vectors of exact fractions, with the numerator and
+rhind provides vectors of exact fractions, with the numerator and
 denominator stored separately as whole numbers.
 
 - Fractions are displayed as they were written, so `3/10` and `30/100`
@@ -26,13 +26,13 @@ You can install the development version of fraction from GitHub:
 
 ``` r
 # install.packages("pak")
-pak::pak("mitchelloharawild/fraction")
+pak::pak("mitchelloharawild/rhind")
 ```
 
 ## Usage
 
 ``` r
-library(fraction)
+library(rhind)
 
 fraction(1, 3) + fraction(1, 6)
 #> <fraction<double>[1]>
@@ -64,7 +64,7 @@ fraction(1, 3) + as_fraction(0.5)
 #> [1] 5/6
 ```
 
-See `vignette("fraction")` for details.
+See `vignette("rhind")` for details.
 
 ## Caveats
 

@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(fraction)
+library(rhind)
 
-test_check("fraction")
+test_check("rhind")

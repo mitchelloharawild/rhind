@@ -1,4 +1,4 @@
-Package: fraction
+Package: rhind
 Title: Exact Fractions as Vectors
 Version: 0.0.0.9000
 Authors@R: 
@@ -14,8 +14,8 @@ Description: A semantic data type for fractions, storing the numerator and
     as integers or doubles, with integers becoming doubles when results need
     larger numbers.
 License: MIT + file LICENSE
-URL: https://pkg.mitchelloharawild.com/fraction/, https://github.com/mitchelloharawild/fraction
-BugReports: https://github.com/mitchelloharawild/fraction/issues
+URL: https://pkg.mitchelloharawild.com/rhind/, https://github.com/mitchelloharawild/rhind
+BugReports: https://github.com/mitchelloharawild/rhind/issues
 Encoding: UTF-8
 Language: en-GB
 Roxygen: list(markdown = TRUE)

@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(fraction)
+library(rhind)
 ```
 
 ## The problem
@@ -28,7 +28,7 @@ Most fractions can't be stored exactly as a number, so arithmetic with them is a
 fraction(1, 10) + fraction(2, 10) == fraction(3, 10)
 ```
 
-A number also forgets how it was written: 3 out of 10 and 30 out of 100 are both `0.3`. The fraction package stores the numerator `n` and denominator `d` separately, which keeps both the exact value and the terms it was written in.
+A number also forgets how it was written: 3 out of 10 and 30 out of 100 are both `0.3`. The rhind package stores the numerator `n` and denominator `d` separately, which keeps both the exact value and the terms it was written in.
 
 ## Data structure
 
