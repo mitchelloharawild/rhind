@@ -141,7 +141,7 @@ frac_value <- function(x) {
 }
 
 # From a list of fields
-restore <- function(x) new_fraction(x$n, x$d)
+frac_restore <- function(x) new_fraction(x$n, x$d)
 
 #' Components of fractions
 #'
@@ -173,7 +173,7 @@ denominator <- function(x) {
 #' @export
 simplify <- function(x) {
   check_fraction(x)
-  restore(.Call(C_frac_reduce, field_n(x), field_d(x)))
+  frac_restore(.Call(C_frac_reduce, field_n(x), field_d(x)))
 }
 
 # vctrs proxies ----------------------------------------------------------------

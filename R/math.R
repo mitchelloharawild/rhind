@@ -47,7 +47,7 @@ drop_missing <- function(x, na.rm) {
 }
 
 accumulate <- function(x, op, cumulative, by = 1) {
-  restore(.Call(
+  frac_restore(.Call(
     C_frac_accumulate, op_codes[[op]], field_n(x), field_d(x), cumulative, by
   ))
 }
@@ -86,7 +86,7 @@ math_extreme <- function(.fn, .x, ..., na.rm = FALSE) {
 
 # Modes are floor, ceiling, trunc, and round (half to even)
 round_fraction <- function(x, mode, digits = 0L) {
-  restore(.Call(C_frac_round, field_n(x), field_d(x), mode, digits))
+  frac_restore(.Call(C_frac_round, field_n(x), field_d(x), mode, digits))
 }
 
 math_round <- function(x, digits = 0, ...) {

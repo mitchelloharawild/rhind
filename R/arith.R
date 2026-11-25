@@ -122,7 +122,7 @@ arith_fraction <- function(op, x, y) {
   if (!exact) {
     return(get(op, baseenv())(as.double(x), as.double(y)))
   }
-  restore(.Call(
+  frac_restore(.Call(
     C_frac_arith, op_codes[[op]], field_n(x), field_d(x), field_n(y), field_d(y)
   ))
 }

@@ -48,7 +48,7 @@ as_fraction.double <- function(x, ..., tolerance = 1e-12, max_d = 1e9) {
   check_number(tolerance, "tolerance", 0, 1)
   check_number(max_d, "max_d", 1, max_whole)
   x <- as_bare_number(x)
-  restore(.Call(C_frac_approx, x, tolerance, max_d))
+  frac_restore(.Call(C_frac_approx, x, tolerance, max_d))
 }
 
 check_number <- function(x, arg, min, max, call = caller_env()) {
