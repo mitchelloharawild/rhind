@@ -24,8 +24,8 @@ vec_math.fraction <- function(.fn, .x, ...) {
     .fn,
     sum = , prod = , mean = math_total(.fn, .x, ...),
     min = , max = , range = math_extreme(.fn, .x, ...),
-    cumsum = accumulate(.x, "+", TRUE),
-    cumprod = accumulate(.x, "*", TRUE),
+    cumsum = frac_accumulate(.x, "+", TRUE),
+    cumprod = frac_accumulate(.x, "*", TRUE),
     cummin = cumulative_extreme(.x, 1L),
     cummax = cumulative_extreme(.x, -1L),
     floor = round_fraction(.x, 1L),
@@ -46,7 +46,7 @@ drop_missing <- function(x, na.rm) {
   if (na.rm && anyNA(x)) x[!is.na(x)] else x
 }
 
-accumulate <- function(x, op, cumulative, by = 1) {
+frac_accumulate <- function(x, op, cumulative, by = 1) {
   frac_restore(.Call(
     C_frac_accumulate, op_codes[[op]], field_n(x), field_d(x), cumulative, by
   ))
@@ -54,7 +54,7 @@ accumulate <- function(x, op, cumulative, by = 1) {
 
 math_total <- function(.fn, .x, ..., na.rm = FALSE) {
   .x <- drop_missing(.x, na.rm)
-  accumulate(
+  frac_accumulate(
     .x, if (.fn == "prod") "*" else "+", FALSE,
     by = if (.fn == "mean") as.double(length(.x)) else 1
   )
