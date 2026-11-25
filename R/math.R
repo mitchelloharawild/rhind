@@ -26,8 +26,8 @@ vec_math.fraction <- function(.fn, .x, ...) {
     min = , max = , range = math_extreme(.fn, .x, ...),
     cumsum = frac_accumulate(.x, "+", TRUE),
     cumprod = frac_accumulate(.x, "*", TRUE),
-    cummin = cumulative_extreme(.x, 1L),
-    cummax = cumulative_extreme(.x, -1L),
+    cummin = frac_cumulative_extreme(.x, 1L),
+    cummax = frac_cumulative_extreme(.x, -1L),
     floor = round_fraction(.x, 1L),
     ceiling = round_fraction(.x, 2L),
     trunc = round_fraction(.x, 3L),
@@ -64,7 +64,7 @@ frac_which_extreme <- function(x, sign, cumulative) {
   .Call(C_frac_extreme, field_n(x), field_d(x), sign, cumulative)
 }
 
-cumulative_extreme <- function(x, sign) {
+frac_cumulative_extreme <- function(x, sign) {
   simplify(x[frac_which_extreme(x, sign, TRUE)])
 }
 
