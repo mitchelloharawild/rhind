@@ -1,7 +1,8 @@
 #' Rewrite fractions with other denominators
 #'
 #' `frac_rescale()` rewrites fractions with the denominator `d`, without changing
-#' their value.
+#' their value. `frac_align()` rewrites all fractions with their least common
+#' denominator, the smallest which they can share.
 #'
 #' Missing fractions, and fractions with a denominator of zero, are kept as they
 #' are. Results which need numbers larger than 2^53 are missing, with a warning.
@@ -12,18 +13,33 @@
 #'   an error if any fraction can't be written exactly with its denominator.
 #'
 #' @return A [fraction()] vector. As with arithmetic, it is stored as doubles if
-#'   `x` or `d` are doubles.
+#'   `x` or `d` are doubles. It is an error if the least common denominator is
+#'   larger than 2^53.
 #'
 #' @seealso [frac_simplify()] for lowest terms.
 #' @examples
 #' frac_rescale(fraction(3, 4), 100)
 #' frac_rescale(fraction(c(1, 2), 3), c(6, 12))
+#'
+#' frac_align(fraction(1, c(2, 3)))
 #' @export
 frac_rescale <- function(x, d) {
   check_fraction(x)
   d <- as_whole(d, "d")
   if (any(d <= 0, na.rm = TRUE)) cli_abort("{.arg d} must be positive.")
   vec_size_common(x = x, d = d)
+  rescale(x, d)
+}
+
+#' @rdname frac_rescale
+#' @export
+frac_align <- function(x) {
+  check_fraction(x)
+  d <- .Call(C_frac_lcd, field_n(x), field_d(x))
+  if (is.na(d)) {
+    cli_abort("The least common denominator of {.arg x} is larger than 2^53.")
+  }
+  if (is_integer_stored(x) && d <= .Machine$integer.max) d <- as.integer(d)
   rescale(x, d)
 }
 

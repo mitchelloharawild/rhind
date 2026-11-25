@@ -54,3 +54,43 @@ test_that("frac_rescale() checks inputs", {
   expect_error(frac_rescale(0.5, 2), "fraction")
   expect_error(frac_rescale(x))
 })
+
+test_that("frac_align()", {
+  expect_terms(frac_align(fraction(1, c(2, 3))), c(3, 2), c(6, 6))
+  x <- fraction(c(2L, -1L, 0L, 5L, 2L), c(8L, 6L, 7L, 1L, 2L))
+  out <- frac_align(x)
+  expect_terms(out, c(3, -2, 0, 60, 12), rep(12, 5))
+  expect_type(frac_num(out), "integer")
+  expect_identical(frac_align(out), out)
+  expect_terms(frac_align(fraction(c(2, 0), c(4, 4))), c(1, 0), c(2, 2))
+
+  # Missing and special values
+  expect_terms(
+    frac_align(fraction(c(1, NA, 5, -5, 0, 1), c(2, 7, 0, 0, 0, 3))),
+    c(3, NA, 5, -5, 0, 2), c(6, NA, 0, 0, 0, 6)
+  )
+  y <- fraction(c(NA, 5L, 0L), c(1L, 0L, 0L))
+  expect_identical(frac_align(y), y)
+  expect_identical(frac_align(x[0]), x[0])
+  expect_identical(frac_align(fraction(double())), fraction(double()))
+  expect_error(frac_align(1), "fraction")
+})
+
+test_that("frac_align() limits", {
+  big <- .Machine$integer.max
+  x <- fraction(1L, c(big, 2L))
+  expect_identical(frac_align(x), fraction(c(2, big), 2 * as.double(big)))
+  # Only numerators are too large for integers
+  expect_identical(
+    frac_align(fraction(c(big, 1L), c(1L, 2L))), fraction(c(2 * as.double(big), 1), 2)
+  )
+  expect_terms(frac_align(fraction(1, c(2^53, 2))), c(1, 2^52), c(2^53, 2^53))
+  expect_error(frac_align(fraction(1, c(2^53, 3))), "least common denominator.*2\\^53")
+  # 2^53 + 1 = 3 * 3002399751580331 would be rounded to 2^53 as doubles
+  expect_error(frac_align(fraction(1, c(3, 3002399751580331))), "least common denominator")
+  expect_error(frac_align(fraction(1, 1:60)), "least common denominator")
+  expect_warning(
+    expect_terms(frac_align(fraction(c(2^53, 1), c(1, 3))), c(NA, 1), c(NA, 3)),
+    "too large"
+  )
+})

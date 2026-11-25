@@ -2,9 +2,12 @@
 % Please edit documentation in R/terms.R
 \name{frac_rescale}
 \alias{frac_rescale}
+\alias{frac_align}
 \title{Rewrite fractions with other denominators}
 \usage{
 frac_rescale(x, d)
+
+frac_align(x)
 }
 \arguments{
 \item{x}{A \code{\link[=fraction]{fraction()}} vector.}
@@ -15,11 +18,13 @@ an error if any fraction can't be written exactly with its denominator.}
 }
 \value{
 A \code{\link[=fraction]{fraction()}} vector. As with arithmetic, it is stored as doubles if
-\code{x} or \code{d} are doubles.
+\code{x} or \code{d} are doubles. It is an error if the least common denominator is
+larger than 2^53.
 }
 \description{
 \code{frac_rescale()} rewrites fractions with the denominator \code{d}, without changing
-their value.
+their value. \code{frac_align()} rewrites all fractions with their least common
+denominator, the smallest which they can share.
 }
 \details{
 Missing fractions, and fractions with a denominator of zero, are kept as they
@@ -28,6 +33,8 @@ are. Results which need numbers larger than 2^53 are missing, with a warning.
 \examples{
 frac_rescale(fraction(3, 4), 100)
 frac_rescale(fraction(c(1, 2), 3), c(6, 12))
+
+frac_align(fraction(1, c(2, 3)))
 }
 \seealso{
 \code{\link[=frac_simplify]{frac_simplify()}} for lowest terms.

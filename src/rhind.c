@@ -328,6 +328,21 @@ SEXP frac_rescale(SEXP n, SEXP d, SEXP to_) {
   return finish(&w, x.in && to.in);
 }
 
+/* Least common denominator in lowest terms, or NA if not representable */
+SEXP frac_lcd(SEXP n, SEXP d) {
+  fracs x = read_fracs(n, d);
+  i128 out = 1;
+  for (R_xlen_t i = 0; i < x.len; i++) {
+    CHECK_INTERRUPT(i);
+    frac v = get(&x, i);
+    if (v.na || v.d == 0) continue;
+    v = make(v.n, v.d);
+    out *= v.d / (i128) gcd((u128) out, (u128) v.d);
+    if (too_large(out)) return Rf_ScalarReal(NA_REAL);
+  }
+  return Rf_ScalarReal((double) out);
+}
+
 /* One step of a sum or product with a wide running total */
 static frac accumulate(int op, frac s, frac v, int *overflow) {
   if (s.na || v.na) return FRAC_NA;
@@ -524,6 +539,7 @@ static const R_CallMethodDef call_entries[] = {
   CALLDEF(frac_compare, 4),
   CALLDEF(frac_reduce, 2),
   CALLDEF(frac_rescale, 3),
+  CALLDEF(frac_lcd, 2),
   CALLDEF(frac_accumulate, 5),
   CALLDEF(frac_extreme, 4),
   CALLDEF(frac_round, 4),

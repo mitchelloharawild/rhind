@@ -24,6 +24,7 @@ reference:
   - title: Rewriting fractions
     contents:
       - frac_rescale
+      - frac_align
   - title: Working with fractions
     contents:
       - fraction-arithmetic
